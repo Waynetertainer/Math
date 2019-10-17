@@ -13,6 +13,17 @@ namespace MyMath
             set => values[a, b] = value;
         }
 
+        public static Matrix GetUnit(int size)
+        {
+            Matrix output=new Matrix(size,size);
+            for (int i = 0; i < size; i++)
+            {
+                output[i, i] = 1;
+            }
+
+            return output;
+        }
+
         public bool square => rows == columns;
         public int columns => values.GetLength(0);
         public int rows => values.GetLength(1);

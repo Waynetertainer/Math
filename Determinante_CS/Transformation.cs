@@ -49,7 +49,7 @@ namespace MyMath
         {
             mTranslation = translation;
             mScale = scale;
-            mRotation = (rotation != null) ? rotation : new Matrix(3, 3);
+            mRotation = (rotation != null) ? rotation : Matrix.GetUnit(3);
             RecalculateValues();
         }
 
@@ -192,15 +192,14 @@ namespace MyMath
 
         private void RecalculateValues()
         {
-            //TODO unit * scale * rot* Transformation
-            Matrix scaleTranslation = new Matrix(4, 4);
-            scaleTranslation[0, 0] = Scale.x;
-            scaleTranslation[1, 1] = Scale.y;
-            scaleTranslation[2, 2] = Scale.z;
-            scaleTranslation[3, 0] = Translation.x;
-            scaleTranslation[3, 1] = Translation.y;
-            scaleTranslation[3, 2] = Translation.z;
-            scaleTranslation[3, 3] = 1;
+            // scale * rot* Translation
+
+            Matrix scale= new Matrix(4,4);
+            scale[0, 0] = Scale.x;
+            scale[1, 1] = Scale.y;
+            scale[2, 2] = Scale.z;
+            scale[3, 3] = 1;
+
             Matrix rotation = new Matrix(4, 4);
             for (int i = 0; i < 3; i++)
             {
@@ -210,8 +209,13 @@ namespace MyMath
                 }
             }
             rotation[3, 3] = 1;
-            Console.Out.WriteLine("rotation = {0}", rotation);
-            Matrix transformation = scaleTranslation * rotation;
+
+            Matrix translation = Matrix.GetUnit(4);
+            translation[3, 0] = Translation.x;
+            translation[3, 1] = Translation.y;
+            translation[3, 2] = Translation.z;
+
+            Matrix transformation = scale * rotation * translation;
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
