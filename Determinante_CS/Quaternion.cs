@@ -2,7 +2,7 @@
 
 namespace MyMath
 {
-    class Quaternion
+    public class Quaternion
     {
         public float w;
         public float x;

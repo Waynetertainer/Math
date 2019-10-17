@@ -2,10 +2,10 @@
 
 namespace MyMath
 {
-    class Vector3
+    public class Vector3
     {
         public float x, y, z;
-        public float magnitude => this.Magnitude();
+        public float magnitude => Magnitude();
         public Vector3 normalized => Normalize(this);
         public float this[int a]
         {
@@ -57,6 +57,13 @@ namespace MyMath
             z = zIn;
         }
 
+        public Vector3(Vector4 input)
+        {
+            x = input.x;
+            y = input.y;
+            z = input.z;
+        }
+
         public static Vector3 operator +(Vector3 a, Vector3 b)
         {
             return new Vector3(a.x + b.x, a.y + b.y, a.z + b.z);
@@ -66,6 +73,10 @@ namespace MyMath
             return new Vector3(a.x - b.x, a.y - b.y, a.z - b.z);
         }
         public static Vector3 operator *(Vector3 a, float b)
+        {
+            return new Vector3(a.x * b, a.y * b, a.z * b);
+        }
+        public static Vector3 operator *(float b, Vector3 a)
         {
             return new Vector3(a.x * b, a.y * b, a.z * b);
         }
@@ -88,7 +99,7 @@ namespace MyMath
             return new Vector3(a.y * b.z - b.y * a.z, a.z * b.x - b.z * a.x, a.x * b.y - b.x * a.y);
         }
 
-        private float Magnitude()
+        public float Magnitude()
         {
             return (float)Math.Sqrt(x * x + y * y + z * z);
         }
@@ -110,16 +121,17 @@ namespace MyMath
             float cos = (float)Math.Cos(angle.DegToRad());
             float sin = (float)Math.Sin(angle.DegToRad());
             float omc = 1 - cos;
+            axis.Normalize();
             Matrix rotationMatrix = new Matrix(3, 3)
             {
                 [0, 0] = omc * axis.x * axis.x + cos,
-                [1, 0] = omc * axis.x * axis.y + sin * axis.z,
-                [2, 0] = omc * axis.x * axis.z - sin * axis.y,
-                [0, 1] = omc * axis.y * axis.x - sin * axis.z,
+                [0, 1] = omc * axis.x * axis.y + sin * axis.z,
+                [0, 2] = omc * axis.x * axis.z - sin * axis.y,
+                [1, 0] = omc * axis.y * axis.x - sin * axis.z,
                 [1, 1] = omc * axis.y * axis.y + cos,
-                [1, 1] = omc * axis.y * axis.z + sin * axis.x,
-                [0, 2] = omc * axis.z * axis.x + sin * axis.y,
-                [1, 2] = omc * axis.z * axis.y - sin * axis.x,
+                [1, 2] = omc * axis.y * axis.z + sin * axis.x,
+                [2, 0] = omc * axis.z * axis.x + sin * axis.y,
+                [2, 1] = omc * axis.z * axis.y - sin * axis.x,
                 [2, 2] = omc * axis.z * axis.z + cos
             };
             Vector3 temp = rotationMatrix * this;
