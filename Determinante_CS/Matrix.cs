@@ -152,6 +152,24 @@ namespace MyMath
 
             return output;
         }
+        public static Matrix Cofactor(Matrix a)
+        {
+            if (a.values.GetLength(0) != a.values.GetLength(1)) throw new System.ArgumentException("Matrix must be square");
+            Matrix output = new Matrix(a.values.GetLength(0), a.values.GetLength(1));
+            for (int i = 0; i < a.values.GetLength(0); i++)
+            {
+                for (int j = 0; j < a.values.GetLength(1); j++)
+                {
+                    output[i, j] = Cofactor(a, i, j);
+                }
+            }
+
+            return output;
+        }
+        public static Matrix Inverse(Matrix a)
+        {
+            return Transpose(Cofactor(a)) * (1 / Det(a));
+        }
         public static float Cofactor(Matrix a, int p, int q)
         {
             if (a.values.GetLength(0) != a.values.GetLength(1)) throw new System.ArgumentException("Matrix must be square");
@@ -176,20 +194,6 @@ namespace MyMath
             }
 
             return (float)System.Math.Pow(-1, p + q) * Det(submatrix);
-        }
-        public static Matrix Cofactor(Matrix a)
-        {
-            if (a.values.GetLength(0) != a.values.GetLength(1)) throw new System.ArgumentException("Matrix must be square");
-            Matrix output = new Matrix(a.values.GetLength(0), a.values.GetLength(1));
-            for (int i = 0; i < a.values.GetLength(0); i++)
-            {
-                for (int j = 0; j < a.values.GetLength(1); j++)
-                {
-                    output[i, j] = Cofactor(a, i, j);
-                }
-            }
-
-            return output;
         }
         public static float Det(Matrix a)
         {
@@ -221,10 +225,6 @@ namespace MyMath
             }
 
             return det;
-        }
-        public static Matrix Inverse(Matrix a)
-        {
-            return Transpose(Cofactor(a)) * (1 / Det(a));
         }
 
         public override string ToString()

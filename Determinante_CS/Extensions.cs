@@ -14,5 +14,15 @@ namespace MyMath
         {
             return val * val;
         }
+
+        public static float Clamp(this float val, float max)
+        {
+            return val > max ? max : val;
+        }
+
+        public static int Clamp(this int val, int max)
+        {
+            return val > max ? max : val;
+        }
     }
 }

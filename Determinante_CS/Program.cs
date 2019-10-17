@@ -61,16 +61,20 @@ namespace MyMath
             //Console.Out.WriteLine("X_YZ = {0}", Transformation.EulerX_YZ(12,14,16)*vec);
             //Console.Out.WriteLine("XZY = {0}", Transformation.EulerXZY(12,16,14)*vec);
 
-            Vector3 vec = new Vector3(1, 1, 1);
-            //Matrix Rotation = Transformation.AngleAxis(new Vector3(2, 3, 5), 60);
-            Matrix Rotation = Transformation.EulerZ(90);
-            Console.Out.WriteLine("Rotation = {0}", Rotation);
-            Transformation m = new Transformation(new Vector3(20,0,0), new Vector3(3));
-            Console.Out.WriteLine("m.Translation = {0}", m.Translation);
-            Console.Out.WriteLine("m.Scale = {0}", m.Scale);
-            Console.Out.WriteLine("m.Rotation = {0}", m.Rotation);
-            Console.Out.WriteLine("m = {0}", m);
-            Console.Out.WriteLine("vec * m = {0}", vec * m);
+            //Vector3 vec = new Vector3(1, 1, 1);
+            ////Matrix Rotation = Transformation.AngleAxis(new Vector3(2, 3, 5), 60);
+            //Matrix Rotation = Transformation.EulerZ(90);
+            //Console.Out.WriteLine("Rotation = {0}", Rotation);
+            //Transformation m = new Transformation(new Vector3(20,0,0), new Vector3(3));
+            //Console.Out.WriteLine("m.Translation = {0}", m.Translation);
+            //Console.Out.WriteLine("m.Scale = {0}", m.Scale);
+            //Console.Out.WriteLine("m.Rotation = {0}", m.Rotation);
+            //Console.Out.WriteLine("m = {0}", m);
+            //Console.Out.WriteLine("vec * m = {0}", vec * m);
+            Matrix a= new Matrix(4,4);
+            a[1, 1] = 1;
+            Transformation b= new Transformation(a);
+            Console.Out.WriteLine("b = {0}", b);
 
 
         }

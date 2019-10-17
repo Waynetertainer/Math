@@ -35,6 +35,17 @@ namespace MyMath
             }
         }
 
+        public Transformation(Matrix m) : base(4, 4)
+        {
+            if (m.rows != 4 || m.columns != 4) throw new System.ArgumentException("Input array must be 4x4");
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    values[i, j] = m[i, j];
+                }
+            }
+        }
         public Transformation(float[,] a) : base(a)
         {
             if (a.GetLength(0) != 4 || a.GetLength(1) != 4) throw new System.ArgumentException("Input array must be 4x4");
@@ -56,6 +67,11 @@ namespace MyMath
         public static Vector3 operator *(Vector3 v, Transformation m)
         {
             return new Vector3(m * new Vector4(v));
+        }
+
+        public static Vector3 operator *(Transformation m, Vector3 v)
+        {
+            return v * m;
         }
 
         public static Matrix EulerX(float angle)
@@ -194,7 +210,7 @@ namespace MyMath
         {
             // scale * rot* Translation
 
-            Matrix scale= new Matrix(4,4);
+            Matrix scale = new Matrix(4, 4);
             scale[0, 0] = Scale.x;
             scale[1, 1] = Scale.y;
             scale[2, 2] = Scale.z;
