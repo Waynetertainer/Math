@@ -61,6 +61,15 @@ namespace MyMath
             //Console.Out.WriteLine("X_YZ = {0}", Transformation.EulerX_YZ(12,14,16)*vec);
             //Console.Out.WriteLine("XZY = {0}", Transformation.EulerXZY(12,16,14)*vec);
 
+            //public static bool operator ==(Vector3 a, Vector3 b)
+            //{
+            //    return a.x == b.x && a.y == b.y && a.z == b.z;
+            //}
+            //public static bool operator !=(Vector3 a, Vector3 b)
+            //{
+            //    return a.x != b.x || a.y != b.y || a.z != b.z;
+            //}
+
             //Vector3 vec = new Vector3(1, 1, 1);
             ////Matrix Rotation = Transformation.AngleAxis(new Vector3(2, 3, 5), 60);
             //Matrix Rotation = Transformation.EulerZ(90);
@@ -71,9 +80,9 @@ namespace MyMath
             //Console.Out.WriteLine("m.Rotation = {0}", m.Rotation);
             //Console.Out.WriteLine("m = {0}", m);
             //Console.Out.WriteLine("vec * m = {0}", vec * m);
-            Matrix a= new Matrix(4,4);
+            Matrix a = new Matrix(4, 4);
             a[1, 1] = 1;
-            Transformation b= new Transformation(a);
+            Transformation b = new Transformation(a);
             Console.Out.WriteLine("b = {0}", b);
 
 

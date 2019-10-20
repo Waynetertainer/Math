@@ -15,7 +15,7 @@ namespace MyMath
 
         public static Matrix GetUnit(int size)
         {
-            Matrix output=new Matrix(size,size);
+            Matrix output = new Matrix(size, size);
             for (int i = 0; i < size; i++)
             {
                 output[i, i] = 1;
