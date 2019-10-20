@@ -2,7 +2,7 @@
 
 namespace MyMath
 {
-    public class Vector3
+    public class Vector3 //: IEquatable<Vector3>
     {
         public float x, y, z;
         public float magnitude => Magnitude();
@@ -66,6 +66,7 @@ namespace MyMath
 
         public static Vector3 operator +(Vector3 a, Vector3 b)
         {
+           // return new Vector3(0);
             return new Vector3(a.x + b.x, a.y + b.y, a.z + b.z);
         }
         public static Vector3 operator -(Vector3 a, Vector3 b)
@@ -154,19 +155,19 @@ namespace MyMath
             return (float)Math.Sqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y) + (b.z - a.z) * (b.z - a.z));
         }
 
-        //public override bool Equals(Object obj)
-        //{
-        //    return true;
-        //    if (obj is Vector3)
-        //    {
-        //        var other = obj as Vector3;
-        //        return (x == other.x &&
-        //                y == other.y &&
-        //                z == other.z);
-        //    }
+        public override bool Equals(Object obj)
+        {
+            return true;
+            if (obj is Vector3)
+            {
+                var other = obj as Vector3;
+                return (x == other.x &&
+                        y == other.y &&
+                        z == other.z);
+            }
 
-        //    return false;
-        //}
+            return false;
+        }
 
         //public bool Equals(Vector3 other)
         //{

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 
 namespace MyMath
@@ -120,19 +121,22 @@ namespace MyMath
         {
             return a * b;
         }
+
         public static Matrix operator *(Matrix a, Matrix b)
         {
-            if (a.values.GetLength(1) != b.values.GetLength(0)) throw new System.ArgumentException("Matrices incompatible");
+            Console.Out.WriteLine("hi");
+            //if (a.values.GetLength(1) != b.values.GetLength(0)) throw new System.ArgumentException("Matrices incompatible");
+            if (a.columns != b.rows) throw new System.ArgumentException("Matrices incompatible");
+            //Matrix output = new Matrix(a.values.GetLength(0), b.values.GetLength(1));
+            Matrix output = new Matrix(a.rows, b.columns);
 
-            Matrix output = new Matrix(a.values.GetLength(0), b.values.GetLength(1));
-
-            for (int i = 0; i < a.values.GetLength(0); i++)
+            for (int i = 0; i < a.rows; i++)
             {
-                for (int j = 0; j < b.values.GetLength(1); j++)
+                for (int j = 0; j < b.columns; j++)
                 {
-                    for (int k = 0; k < a.values.GetLength(1); k++)
+                    for (int k = 0; k < a.columns; k++)
                     {
-                        output[i, j] += a[i, k] * b[k, j];
+                        output[a.rows - i - 1, b.columns - j - 1] += a[i, k] * b[k, j];
                     }
                 }
             }
