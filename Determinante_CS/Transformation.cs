@@ -227,9 +227,9 @@ namespace MyMath
             rotation[3, 3] = 1;
 
             Matrix translation = Matrix.GetUnit(4);
-            translation[3, 0] = Translation.x;
-            translation[3, 1] = Translation.y;
-            translation[3, 2] = Translation.z;
+            translation[0, 3] = Translation.x;
+            translation[1, 3] = Translation.y;
+            translation[2, 3] = Translation.z;
 
             Matrix transformation = scale * rotation * translation;
             for (int i = 0; i < 4; i++)

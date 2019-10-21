@@ -124,10 +124,7 @@ namespace MyMath
 
         public static Matrix operator *(Matrix a, Matrix b)
         {
-            Console.Out.WriteLine("hi");
-            //if (a.values.GetLength(1) != b.values.GetLength(0)) throw new System.ArgumentException("Matrices incompatible");
             if (a.columns != b.rows) throw new System.ArgumentException("Matrices incompatible");
-            //Matrix output = new Matrix(a.values.GetLength(0), b.values.GetLength(1));
             Matrix output = new Matrix(a.rows, b.columns);
 
             for (int i = 0; i < a.rows; i++)
@@ -172,6 +169,7 @@ namespace MyMath
         }
         public static Matrix Inverse(Matrix a)
         {
+            if (Math.Abs(Det(a)) <= 0.01f) throw new System.ArithmeticException("Determinant of input must not be 0");
             return Transpose(Cofactor(a)) * (1 / Det(a));
         }
         public static float Cofactor(Matrix a, int p, int q)
@@ -243,6 +241,28 @@ namespace MyMath
                 }
             }
             return output.ToString();
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj is Matrix)
+            {
+                var other = obj as Matrix;
+                if (other.rows != rows || other.columns != columns) return false;
+
+
+                for (int i = 0; i < columns; i++)
+                {
+                    for (int j = 0; j < rows; j++)
+                    {
+                        if ((Math.Abs(this[i, j] - other[i, j]) >= 0.01f)) return false;
+                    }
+                }
+
+                return true;
+            }
+
+            return false;
         }
     }
 
